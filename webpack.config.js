@@ -1,15 +1,18 @@
+const path = require("path");
+
 module.exports = {
-  mode: "production", //minimizuje u budle fajl (ako stavim development, nece da minimizuje)
-  entry: "./src/index.js", //kaze webpack-u odakle da krene, i uzima importe
+  mode: "development", // ili "production"
+  entry: "./src/index.js",
   output: {
-    filename: "main.js", //tu se pakuje bundle fajl
+    path: path.resolve(__dirname, "dist"),
+    filename: "main.js",
   },
   module: {
     rules: [
       {
-        test: /\.js$/, //regex
+        test: /\.js$/,
         exclude: /node_modules/,
-        use: ["babel-loader"], //veza izmedju webpack i babel
+        use: "babel-loader",
       },
     ],
   },
