@@ -8,5 +8,5 @@ module.exports = {
       },
     ],
   ],
-  sourceType: "unambiguous",
+  // sourceType: "unambiguous",
 };

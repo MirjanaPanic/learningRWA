@@ -1,18 +1,21 @@
-const path = require("path");
-
 module.exports = {
-  mode: "development", // ili "production"
-  entry: "./src/index.js",
+  mode: "production", //minimizuje u bundle fajl (ako stavim development, nece da minimizuje)
+  entry: "./src/index.ts", //kaze webpack-u odakle da krene, i uzima importe (kao crawler)
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "main.js",
+    filename: "main.js", //tu se pakuje bundle fajl
+    //podrazumeva da je u dist folderu :)
   },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.[jt]sx?$/,
         exclude: /node_modules/,
-        use: "babel-loader",
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env"],
+          },
+        },
       },
     ],
   },
