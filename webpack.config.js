@@ -1,22 +1,23 @@
+const path = require("path");
+
 module.exports = {
-  mode: "production", //minimizuje u bundle fajl (ako stavim development, nece da minimizuje)
-  entry: "./src/index.ts", //kaze webpack-u odakle da krene, i uzima importe (kao crawler)
+  mode: "development",
+  entry: "./src/observables.ts",
   output: {
-    filename: "main.js", //tu se pakuje bundle fajl
-    //podrazumeva da je u dist folderu :)
+    filename: "main.js",
+    path: path.resolve(__dirname, "dist"),
+  },
+  resolve: {
+    extensions: [".ts", ".js"], //import bez ekstenzije
   },
   module: {
     rules: [
       {
-        test: /\.[jt]sx?$/,
+        test: /\.ts$/,
+        use: "ts-loader",
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: ["@babel/preset-env"],
-          },
-        },
       },
     ],
   },
+  devtool: "source-map", //debug u browseru, unbundle
 };
