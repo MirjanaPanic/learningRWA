@@ -1,8 +1,18 @@
-import { from, interval, map, Subscription, take } from "rxjs";
+import {
+  from,
+  fromEvent,
+  interval,
+  map,
+  Subscription,
+  take,
+  takeUntil,
+} from "rxjs";
 
-//Creation observables
+//Creation observables:
+// from
 from([1, 2, 3, 4, 5]).subscribe((x) => console.log("from ", x));
 
+// interval
 const subscription = interval(1000)
   .pipe(
     map((x) => x + 2),
@@ -10,12 +20,18 @@ const subscription = interval(1000)
   )
   .subscribe((x) => console.log("interval: ", x));
 
-function handleClick() {
-  subscription.unsubscribe(); // ispravno
-  console.log("Unsubscribed!");
-}
-
 const unsub = document.createElement("button");
 unsub.innerHTML = "Unsubscribe";
 document.body.appendChild(unsub);
-unsub.onclick=handleClick;
+/*unsub.onclick = () => {
+  subscription.unsubscribe(); 
+  console.log("Unsubscribed!");
+};*/
+
+//kontrolni tok i obican tok
+const kontrolniTok$ = fromEvent(unsub, "click"); // klik je signal za prekid
+const tok$ = interval(1000)
+  .pipe(takeUntil(kontrolniTok$))
+  .subscribe((value) => {
+    console.log("Vrednost iz toka:", value);
+  });
