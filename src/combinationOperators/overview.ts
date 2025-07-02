@@ -1,9 +1,9 @@
-import { combineLatest, map, Observable, Subject, zip } from "rxjs";
+import { combineLatest, Observable, Subject, zip } from "rxjs";
 
 const flowNumbers$ = new Subject<number>();
 const flowStrings$ = new Subject<string>();
 
-// zip, combineLatest
+// zip
 
 const zipFlow$: Observable<[number, string]> = zip([
   flowNumbers$,
@@ -11,6 +11,9 @@ const zipFlow$: Observable<[number, string]> = zip([
 ]);
 zipFlow$.subscribe((tuple) => console.log("zip ", tuple));
 //flowNumbers$.subscribe((x) => console.log("numbers", x));
+
+// combineLatest
+//enable/disable logika(npr forma za vise polja, slusaju se sva polja i kad se ispuni uslov enable-uje se dugme)
 
 const combineLatestFlow$: Observable<[number, string]> = combineLatest([
   flowNumbers$,
