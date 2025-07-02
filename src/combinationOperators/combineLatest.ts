@@ -1,6 +1,6 @@
 //enable/disable button
 
-import { combineLatest, fromEvent, map, Observable, Subject } from "rxjs";
+import { combineLatest, fromEvent, map, Observable } from "rxjs";
 
 //ime, prezime, email - kad unese u svako polje bar nesto moze da se enable
 //jos bolje ako se proverava sta je uneto pa tek onda enable
@@ -46,9 +46,9 @@ const flows$: Observable<[string, string, string]> = combineLatest([
   surnames$,
   emails$,
 ]);
-flows$.subscribe((el) => {
+flows$.subscribe(([name, surname, email]) => {
   //moze i neka slozenija provera pre nego da se undisable dugme
-  if (el[0].trim() !== "" && el[1].trim() !== "" && el[2].trim() !== "")
-    btnSend.disabled = false;
-  else btnSend.disabled = true;
+  const valid =
+    name.trim() !== "" && surname.trim() !== "" && email.trim() !== "";
+  btnSend.disabled = !valid;
 }); //tip Subscription
