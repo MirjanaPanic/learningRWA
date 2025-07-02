@@ -28,7 +28,7 @@ btnSend.textContent = "Send";
 btnSend.disabled = true;
 document.body.appendChild(btnSend);
 
-//kreirati tokove od ovih input polja
+//hot obs - postoje dogadjaji nezavisno od pretplate
 const names$: Observable<string> = fromEvent(inputName, "input").pipe(
   map((e: Event) => (e.target as HTMLInputElement).value)
 );
@@ -42,6 +42,7 @@ const emails$: Observable<string> = fromEvent(inputEmail, "input").pipe(
 );
 
 const flows$: Observable<[string, string, string]> = combineLatest([
+  //hot obs
   names$,
   surnames$,
   emails$,
