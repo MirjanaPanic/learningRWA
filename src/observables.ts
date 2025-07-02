@@ -1,12 +1,4 @@
-import {
-  from,
-  fromEvent,
-  interval,
-  map,
-  Subscription,
-  take,
-  takeUntil,
-} from "rxjs";
+import { from, fromEvent, interval, map, take, takeUntil } from "rxjs";
 
 //Creation observables:
 // from
@@ -35,3 +27,12 @@ const tok$ = interval(1000)
   .subscribe((value) => {
     console.log("Vrednost iz toka:", value);
   });
+
+// HOT and COLD observables
+//cold - za svakog subscribera se kreira nezavisni, privatni tok podataka (unicast 1:1)
+//tok je zatvoren, sve dok se neko ne subscribe, tada pocinje da emituje podatke (ne pamti se nista pre sub)
+// primer: audio snimak radija (svako od pocetak slusa snimak!!), snimci koji se pokrecu na play dugme
+
+//hot - jedan tok podataka koji dele svi subscriberi
+//emituje podatke bez da se neko subscribe
+// primer: radio, dogadjaji uzivo
