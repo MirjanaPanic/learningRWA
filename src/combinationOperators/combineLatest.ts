@@ -41,8 +41,8 @@ const emails$: Observable<string> = fromEvent(inputEmail, "input").pipe(
   map((e: Event) => (e.target as HTMLInputElement).value)
 );
 
+//hot obs
 const flows$: Observable<[string, string, string]> = combineLatest([
-  //hot obs
   names$,
   surnames$,
   emails$,

@@ -1,4 +1,4 @@
-import { combineLatest, Observable, Subject, zip } from "rxjs";
+import { combineLatest, concat, Observable, Subject, zip } from "rxjs";
 
 const flowNumbers$ = new Subject<number>();
 const flowStrings$ = new Subject<string>();
@@ -21,12 +21,23 @@ const combineLatestFlow$: Observable<[number, string]> = combineLatest([
 ]);
 combineLatestFlow$.subscribe((tuple) => console.log("combineLatest ", tuple));
 
+// concat - moraju da se izvrsavaju u zadatom redu, zgodno ako su medjusobno zavisni
+//kompletira se tok, pa onda drugi i tako redom
+
+const concatFlow$: Observable<string | number> = concat(
+  flowStrings$,
+  flowNumbers$
+);
+concatFlow$.subscribe((value) => console.log("concat ", value));
+
 flowStrings$.next("jedan");
 flowStrings$.next("dva");
 flowStrings$.next("tri");
+flowStrings$.complete(); //mora da se eksplicitno kaze da je prvi tok zavrsio, da krene sledeci
 flowNumbers$.next(1);
 flowNumbers$.next(2);
 flowNumbers$.next(3);
+flowNumbers$.complete(); //dobra praksa
 
 // withLatestFrom
 //npr pozicija misa da bude u toku iz kojeg se uzima poslednja vrednost
