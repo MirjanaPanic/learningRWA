@@ -2,7 +2,7 @@ const path = require("path");
 
 module.exports = {
   mode: "development",
-  entry: "./src/combinationOperators/overview.ts", //
+  entry: "./src/combinationOperators/concat.ts", //
   output: {
     filename: "main.js",
     path: path.resolve(__dirname, "dist"),

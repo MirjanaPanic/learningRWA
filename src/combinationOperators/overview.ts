@@ -30,6 +30,8 @@ const concatFlow$: Observable<string | number> = concat(
 );
 concatFlow$.subscribe((value) => console.log("concat ", value));
 
+// merge - emituje paralelno iz oba toka
+
 flowStrings$.next("jedan");
 flowStrings$.next("dva");
 flowStrings$.next("tri");
